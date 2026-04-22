@@ -1,0 +1,121 @@
+﻿nazev,vedecky_nazev,rad,celed,delka_cm,rozpeti_cm,hmotnost_g,status_ohrozeni,typ_potravy,migrace,vyskyt_kontinent,snuska_ks
+Orel skalní,Aquila chrysaetos,Dravci,Jestřábovití,85,210,4500,Málo dotčený,masožravec,0,Evropa,2.0
+Sýkora koňadra,Parus major,Pěvci,Sýkorovití,14,24,20,Málo dotčený,všežravec,0,Evropa,10.0
+Čáp bílý,Ciconia ciconia,Brodiví,Čápovití,100,200,3500,Málo dotčený,masožravec,1,Evropa,4.0
+Tučňák císařský,Aptenodytes forsteri,Tučňáci,Tučňákovití,120,0,30000,Téměř ohrožený,masožravec,0,Antarktida,1.0
+Pštros dvouprstý,Struthio camelus,Pštrosi,Pštrosovití,250,0,120000,Málo dotčený,všežravec,0,Afrika,15.0
+Sokol stěhovavý,Falco peregrinus,Dravci,Sokolovití,45,110,1000,Málo dotčený,masožravec,1,Evropa,3.0
+Krkavec velký,Corvus corax,Pěvci,Krkavcovití,65,130,1200,Málo dotčený,všežravec,0,Asie,5.0
+Puštík obecný,Strix aluco,Sovy,Puštíkovití,38,95,500,Málo dotčený,masožravec,0,Evropa,4.0
+Vlaštovka obecná,Hirundo rustica,Pěvci,Vlaštovkovití,18,33,18,Málo dotčený,hmyzožravec,1,Evropa,5.0
+Kachna divoká,Anas platyrhynchos,Vrubozobí,Kachnovití,55,90,1100,Málo dotčený,všežravec,0,Severní Amerika,12.0
+Labuť velká,Cygnus olor,Vrubozobí,Kachnovití,150,220,12000,Málo dotčený,býložravec,0,Evropa,6.0
+Ledňáček říční,Alcedo atthis,Svišťouni,Ledňáčkovití,17,25,40,Málo dotčený,masožravec,0,Evropa,7.0
+Vrabec domácí,Passer domesticus,Pěvci,Vrabcovití,15,22,30,Málo dotčený,všežravec,0,Evropa,5.0
+Kos černý,Turdus merula,Pěvci,Drozdovití,25,36,100,Málo dotčený,všežravec,0,Evropa,4.0
+Sýkora modřinka,Cyanistes caeruleus,Pěvci,Sýkorovití,12,19,11,Málo dotčený,všežravec,0,Evropa,10.0
+Datel černý,Dryocopus martius,Šplhavci,Datlovití,48,73,300,Málo dotčený,hmyzožravec,0,Evropa,4.0
+Výr velký,Bubo bubo,Sovy,Puštíkovití,70,165,2500,Málo dotčený,masožravec,0,Evropa,3.0
+Poštolka obecná,Falco tinnunculus,Dravci,Sokolovití,34,75,200,Málo dotčený,masožravec,0,Evropa,5.0
+Bažant obecný,Phasianus colchicus,Hrabaví,Bažantovití,80,80,1200,Málo dotčený,všežravec,0,Asie,12.0
+Páv korunkatý,Pavo cristatus,Hrabaví,Bažantovití,110,140,5000,Málo dotčený,všežravec,0,Asie,6.0
+Káně lesní,Buteo buteo,Dravci,Jestřábovití,54,120,900,Málo dotčený,masožravec,0,Evropa,3.0
+Strakapoud velký,Dendrocopos major,Šplhavci,Datlovití,23,37,85,Málo dotčený,všežravec,0,Evropa,6.0
+Kukačka obecná,Cuculus canorus,Kukačky,Kukačkovití,33,58,110,Málo dotčený,hmyzožravec,1,Evropa,1.0
+Skřivan polní,Alauda arvensis,Pěvci,Skřivanovití,18,33,40,Málo dotčený,všežravec,1,Evropa,4.0
+Havran polní,Corvus frugilegus,Pěvci,Krkavcovití,46,90,450,Málo dotčený,všežravec,0,Evropa,4.0
+Sojka obecná,Garrulus glandarius,Pěvci,Krkavcovití,34,53,160,Málo dotčený,všežravec,0,Evropa,5.0
+Straka obecná,Pica pica,Pěvci,Krkavcovití,45,56,210,Málo dotčený,všežravec,0,Evropa,6.0
+Hrdlička zahradní,Streptopelia decaocto,Měkkozobí,Holubovití,32,51,180,Málo dotčený,býložravec,0,Evropa,2.0
+Holub hřivnáč,Columba palumbus,Měkkozobí,Holubovití,41,78,500,Málo dotčený,býložravec,0,Evropa,2.0
+Vrabec polní,Passer montanus,Pěvci,Vrabcovití,14,21,22,Málo dotčený,všežravec,0,Evropa,5.0
+Mlynařík dlouhoocasý,Aegithalos caudatus,Pěvci,Mlynaříkovití,14,18,9,Málo dotčený,hmyzožravec,0,Evropa,10.0
+Brhlík lesní,Sitta europaea,Pěvci,Brhlíkovití,14,24,23,Málo dotčený,všežravec,0,Evropa,7.0
+Šoupálek krátkoprstý,Certhia brachydactyla,Pěvci,Šoupálkovití,12,19,9,Málo dotčený,hmyzožravec,0,Evropa,6.0
+Budníček menší,Phylloscopus collybita,Pěvci,Pěnicovití,11,18,8,Málo dotčený,hmyzožravec,1,Evropa,5.0
+Pěnice černohlavá,Sylvia atricapilla,Pěvci,Pěnicovití,14,21,18,Málo dotčený,hmyzožravec,1,Evropa,5.0
+Rehek domácí,Phoenicurus ochruros,Pěvci,Lejskovití,14,24,16,Málo dotčený,hmyzožravec,1,Evropa,5.0
+Červenka obecná,Erithacus rubecula,Pěvci,Lejskovití,14,21,18,Málo dotčený,všežravec,0,Evropa,5.0
+Slavík obecný,Luscinia megarhynchos,Pěvci,Lejskovití,16,25,20,Málo dotčený,hmyzožravec,1,Evropa,5.0
+Drozd zpěvný,Turdus philomelos,Pěvci,Drozdovití,22,34,75,Málo dotčený,všežravec,1,Evropa,5.0
+Konipas bílý,Motacilla alba,Pěvci,Konipasovití,18,28,22,Málo dotčený,hmyzožravec,1,Evropa,5.0
+Pěnkava obecná,Fringilla coelebs,Pěvci,Pěnkavovití,15,26,22,Málo dotčený,všežravec,1,Evropa,5.0
+Stehlík obecný,Carduelis carduelis,Pěvci,Pěnkavovití,13,23,16,Málo dotčený,býložravec,0,Evropa,5.0
+Zvonek zelený,Chloris chloris,Pěvci,Pěnkavovití,15,26,28,Málo dotčený,býložravec,0,Evropa,5.0
+Hýl obecný,Pyrrhula pyrrhula,Pěvci,Pěnkavovití,16,25,30,Málo dotčený,býložravec,0,Evropa,5.0
+Strnad obecný,Emberiza citrinella,Pěvci,Strnadovití,16,26,28,Málo dotčený,všežravec,0,Evropa,4.0
+Špaček obecný,Sturnus vulgaris,Pěvci,Špačkovití,21,38,80,Málo dotčený,všežravec,1,Evropa,5.0
+Žluva hajní,Oriolus oriolus,Pěvci,Žluvovití,24,45,70,Málo dotčený,všežravec,1,Evropa,4.0
+Ťuhýk obecný,Lanius collurio,Pěvci,Ťuhýkovití,17,26,30,Málo dotčený,masožravec,1,Evropa,5.0
+Rorýs obecný,Apus apus,Svišťouni,Rorýsovití,17,44,40,Málo dotčený,hmyzožravec,1,Evropa,2.0
+Vlha pestrá,Merops apiaster,Svišťouni,Vlhovití,28,46,60,Málo dotčený,hmyzožravec,1,Evropa,6.0
+Dudek chocholatý,Upupa epops,Svišťouni,Dudkovití,28,46,70,Málo dotčený,hmyzožravec,1,Evropa,7.0
+Mandelík hajní,Coracias garrulus,Svišťouni,Mandelíkovití,31,65,150,Téměř ohrožený,hmyzožravec,1,Evropa,4.0
+Lelek lesní,Caprimulgus europaeus,Lelkové,Lelkovití,27,57,80,Málo dotčený,hmyzožravec,1,Evropa,2.0
+Sýček obecný,Athene noctua,Sovy,Puštíkovití,22,55,180,Málo dotčený,masožravec,0,Evropa,4.0
+Kalous ušatý,Asio otus,Sovy,Puštíkovití,36,95,280,Málo dotčený,masožravec,0,Evropa,5.0
+Pálená sova,Tyto alba,Sovy,Tytonovití,35,90,330,Málo dotčený,masožravec,0,Evropa,6.0
+Jestřáb lesní,Accipiter gentilis,Dravci,Jestřábovití,60,110,1100,Málo dotčený,masožravec,0,Evropa,3.0
+Krahujec obecný,Accipiter nisus,Dravci,Jestřábovití,33,62,230,Málo dotčený,masožravec,0,Evropa,5.0
+Moták pochop,Circus aeruginosus,Dravci,Jestřábovití,52,125,600,Málo dotčený,masožravec,1,Evropa,4.0
+Luňák červený,Milvus milvus,Dravci,Jestřábovití,63,155,1000,Téměř ohrožený,masožravec,1,Evropa,3.0
+Včelojed lesní,Pernis apivorus,Dravci,Jestřábovití,55,125,800,Málo dotčený,hmyzožravec,1,Evropa,2.0
+Orel mořský,Haliaeetus albicilla,Dravci,Jestřábovití,85,220,5000,Málo dotčený,masožravec,0,Evropa,2.0
+Orlovec říční,Pandion haliaetus,Dravci,Orlovcovití,58,160,1600,Málo dotčený,masožravec,1,Evropa,3.0
+Sokol lovecký,Falco rusticolus,Dravci,Sokolovití,55,125,1400,Málo dotčený,masožravec,0,Severní Amerika,4.0
+Ostříž lesní,Falco subbuteo,Dravci,Sokolovití,33,80,230,Málo dotčený,masožravec,1,Evropa,3.0
+Potápka roháč,Podiceps cristatus,Potápky,Potápkovití,50,90,1100,Málo dotčený,masožravec,1,Evropa,4.0
+Kormorán velký,Phalacrocorax carbo,Suliformní,Kormoránovití,90,140,2500,Málo dotčený,masožravec,0,Evropa,4.0
+Volavka popelavá,Ardea cinerea,Brodiví,Volavkovití,95,180,1700,Málo dotčený,masožravec,0,Evropa,4.0
+Kvakoš noční,Nycticorax nycticorax,Brodiví,Volavkovití,62,110,600,Málo dotčený,masožravec,1,Evropa,4.0
+Bukač velký,Botaurus stellaris,Brodiví,Volavkovití,75,130,1200,Málo dotčený,masožravec,1,Evropa,5.0
+Čáp černý,Ciconia nigra,Brodiví,Čápovití,95,185,3000,Málo dotčený,masožravec,1,Evropa,4.0
+Ibis hnědý,Plegadis falcinellus,Brodiví,Ibisovití,60,90,600,Málo dotčený,masožravec,1,Afrika,4.0
+Kolpík bílý,Platalea leucorodia,Brodiví,Ibisovití,85,125,1500,Málo dotčený,masožravec,1,Evropa,4.0
+Plameňák růžový,Phoenicopterus roseus,Plameňáci,Plameňákovití,130,150,3000,Málo dotčený,všežravec,1,Afrika,1.0
+Husa velká,Anser anser,Vrubozobí,Kachnovití,85,160,3500,Málo dotčený,býložravec,1,Evropa,6.0
+Husa polní,Anser fabalis,Vrubozobí,Kachnovití,75,150,3000,Málo dotčený,býložravec,1,Evropa,5.0
+Berneška kanadská,Branta canadensis,Vrubozobí,Kachnovití,100,170,4500,Málo dotčený,býložravec,1,Severní Amerika,6.0
+Labuť zpěvná,Cygnus cygnus,Vrubozobí,Kachnovití,150,220,10000,Málo dotčený,býložravec,1,Evropa,5.0
+Čírka obecná,Anas crecca,Vrubozobí,Kachnovití,35,58,300,Málo dotčený,všežravec,1,Evropa,10.0
+Kopřivka obecná,Mareca strepera,Vrubozobí,Kachnovití,50,85,800,Málo dotčený,všežravec,1,Evropa,10.0
+Polák velký,Aythya ferina,Vrubozobí,Kachnovití,45,75,900,Zranitelný,všežravec,1,Evropa,9.0
+Polák chocholačka,Aythya fuligula,Vrubozobí,Kachnovití,43,70,800,Málo dotčený,všežravec,1,Evropa,9.0
+Morčák velký,Mergus merganser,Vrubozobí,Kachnovití,62,90,1500,Málo dotčený,masožravec,1,Evropa,10.0
+Jeřáb popelavý,Grus grus,Krátkokřídlí,Jeřábovití,120,220,5000,Málo dotčený,všežravec,1,Evropa,2.0
+Chřástal polní,Crex crex,Krátkokřídlí,Chřástalovití,28,50,160,Málo dotčený,všežravec,1,Evropa,9.0
+Lyska černá,Fulica atra,Krátkokřídlí,Chřástalovití,38,75,800,Málo dotčený,všežravec,0,Evropa,8.0
+Drop velký,Otis tarda,Dropi,Dropovití,100,230,12000,Zranitelný,všežravec,0,Evropa,2.0
+Čejka chocholatá,Vanellus vanellus,Dlouhokřídlí,Kulíkovití,30,85,220,Téměř ohrožený,hmyzožravec,1,Evropa,4.0
+Kulík říční,Charadrius dubius,Dlouhokřídlí,Kulíkovití,16,35,40,Málo dotčený,hmyzožravec,1,Evropa,4.0
+Sluha lesní,Scolopax rusticola,Dlouhokřídlí,Slukovití,35,60,300,Málo dotčený,hmyzožravec,1,Evropa,4.0
+Koliha velká,Numenius arquata,Dlouhokřídlí,Slukovití,55,90,800,Téměř ohrožený,hmyzožravec,1,Evropa,4.0
+Vodouš rudonohý,Tringa totanus,Dlouhokřídlí,Slukovití,28,50,120,Málo dotčený,hmyzožravec,1,Evropa,4.0
+Racek chechtavý,Chroicocephalus ridibundus,Dlouhokřídlí,Rackovití,37,100,270,Málo dotčený,všežravec,1,Evropa,3.0
+Racek bouřní,Larus canus,Dlouhokřídlí,Rackovití,42,115,400,Málo dotčený,všežravec,1,Evropa,3.0
+Rybák obecný,Sterna hirundo,Dlouhokřídlí,Rybákovití,35,75,120,Málo dotčený,masožravec,1,Evropa,3.0
+Alka malá,Alca torda,Dlouhokřídlí,Alkovití,40,65,650,Téměř ohrožený,masožravec,1,Evropa,1.0
+Papuchalk severní,Fratercula arctica,Dlouhokřídlí,Alkovití,30,55,400,Zranitelný,masožravec,1,Evropa,1.0
+Holub skalní,Columba livia,Měkkozobí,Holubovití,32,65,300,Málo dotčený,býložravec,0,Evropa,2.0
+Ara hyacintový,Anodorhynchus hyacinthinus,Papoušci,Papouškovití,100,130,1500,Zranitelný,býložravec,0,Jižní Amerika,2.0
+Žako šedý,Psittacus erithacus,Papoušci,Papouškovití,33,48,400,Ohrožený,býložravec,0,Afrika,4.0
+Andulka vlnkovaná,Melopsittacus undulatus,Papoušci,Papouškovití,18,30,35,Málo dotčený,býložravec,0,Austrálie,6.0
+Tukan obrovský,Ramphastos toco,Šplhavci,Tukanovití,60,60,600,Málo dotčený,všežravec,0,Jižní Amerika,3.0
+Kolibřík včelí,Mellisuga helenae,Svišťouni,Kolibříkovití,6,8,2,Téměř ohrožený,býložravec,0,Severní Amerika,2.0
+Emu hnědý,Dromaius novaehollandiae,Emuové,Emuovití,175,0,40000,Málo dotčený,všežravec,0,Austrálie,10.0
+Kiwi jižní,Apteryx australis,Kiwiové,Kiwiovití,40,0,2500,Zranitelný,všežravec,0,Austrálie,1.0
+Albatros stěhovavý,Diomedea exulans,Trubkonosí,Albatrosovití,120,330,9000,Zranitelný,masožravec,1,Antarktida,1.0
+Terej bílý,Morus bassanus,Suliformní,Terejovití,95,175,3000,Málo dotčený,masožravec,1,Evropa,1.0
+Kondor andský,Vultur gryphus,Dravci,Kondorovití,120,300,12000,Zranitelný,mrchožrout,0,Jižní Amerika,1.0
+Sup bělohlavý,Gyps fulvus,Dravci,Jestřábovití,105,260,8000,Málo dotčený,mrchožrout,0,Evropa,1.0
+Karaso chocholatý,Polyborus plancus,Dravci,Sokolovití,60,125,1200,Málo dotčený,všežravec,0,Jižní Amerika,2.0
+Sekretář hadilov,Sagittarius serpentarius,Dravci,Sekretářovití,135,210,3500,Ohrožený,masožravec,0,Afrika,2.0
+Ledňák obrovský,Dacelo novaeguineae,Svišťouni,Ledňáčkovití,45,65,400,Málo dotčený,masožravec,0,Austrálie,3.0
+Lyrochvost nádherný,Menura novaehollandiae,Pěvci,Lyrochvostovití,90,100,1000,Málo dotčený,všežravec,0,Austrálie,1.0
+Rajka velká,Paradisaea apoda,Pěvci,Rajkovití,43,60,250,Málo dotčený,všežravec,0,Asie,2.0
+Lemčík hedvábný,Ptilonorhynchus violaceus,Pěvci,Lemčíkovití,30,45,200,Málo dotčený,všežravec,0,Austrálie,2.0
+Kvesal chocholatý,Pharomachrus mocinno,Trogoni,Trogonovití,40,60,200,Téměř ohrožený,všežravec,0,Jižní Amerika,2.0
+Kakadu molucký,Cacatua moluccensis,Papoušci,Kakaduovití,50,90,850,Zranitelný,býložravec,0,Asie,2.0
+Kasiuár přílbový,Casuarius casuarius,Kasuáři,Kasuárovití,160,0,50000,Málo dotčený,všežravec,0,Austrálie,4.0
+Tučňák kroužkový,Pygoscelis adeliae,Tučňáci,Tučňákovití,70,0,5000,Málo dotčený,masožravec,1,Antarktida,2.0
+Sněhule severní,Plectrophenax nivalis,Pěvci,Strnadovití,17,32,40,Málo dotčený,všežravec,1,Severní Amerika,5.0
