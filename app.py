@@ -399,6 +399,36 @@ def edit_bird(bird_id):
     conn.close()
     return render_template("birds/edit.html", bird=bird)
 
+@app.route("/birds/<int:bird_id>/delete", methods=["POST"])
+@login_required
+def delete_bird(bird_id):
+    """Smazání ptáka."""
+    current_user = get_current_user()
+    conn = get_db()
+    cursor = conn.cursor()
+    
+    # Kontrola vlastnictví ptáka
+    cursor.execute("SELECT nazev FROM ptaci WHERE id = ? AND user_id = ?", (bird_id, current_user['id']))
+    bird = cursor.fetchone()
+    
+    if not bird:
+        flash("Pták nebyl nalezen nebo nemáte oprávnění ho smazat.", "danger")
+        conn.close()
+        return redirect(url_for("dashboard"))
+    
+    # Smazání ptáka
+    try:
+        cursor.execute("DELETE FROM ptaci WHERE id = ? AND user_id = ?", (bird_id, current_user['id']))
+        conn.commit()
+        conn.close()
+        
+        flash(f"Pták '{bird['nazev']}' byl úspěšně smazán!", "success")
+        return redirect(url_for("dashboard"))
+    except Exception as e:
+        flash(f"Chyba při mazání: {str(e)}", "danger")
+        conn.close()
+        return redirect(url_for("dashboard"))
+
 # ==================== AUTENTIFIKACE ====================
 
 @app.route("/register", methods=["GET", "POST"])
