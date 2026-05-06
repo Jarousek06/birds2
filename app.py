@@ -136,6 +136,35 @@ def dashboard():
     cursor.execute(stats_query, values)
     stats = dict(cursor.fetchone())
     
+    # Grafy — agregační dotazy s GROUP BY
+    # 1. Počet druhů podle řádu
+    graf_rad_query = f"SELECT rad, COUNT(*) as pocet FROM ptaci WHERE {where_clause} GROUP BY rad ORDER BY pocet DESC"
+    cursor.execute(graf_rad_query, values)
+    druhy_rad = cursor.fetchall()
+    graf_rad_labels = [r["rad"] for r in druhy_rad]
+    graf_rad_data = [r["pocet"] for r in druhy_rad]
+    
+    # 2. Průměrná hmotnost podle typu potravy
+    graf_potrava_query = f"SELECT typ_potravy, ROUND(AVG(hmotnost_g), 0) as prum FROM ptaci WHERE {where_clause} GROUP BY typ_potravy ORDER BY prum DESC"
+    cursor.execute(graf_potrava_query, values)
+    hmotnost_potrava = cursor.fetchall()
+    graf_potrava_labels = [r["typ_potravy"] for r in hmotnost_potrava]
+    graf_potrava_data = [r["prum"] for r in hmotnost_potrava]
+    
+    # 3. Tažní vs. netažní
+    graf_migrace_query = f"SELECT migrace, COUNT(*) as pocet FROM ptaci WHERE {where_clause} GROUP BY migrace"
+    cursor.execute(graf_migrace_query, values)
+    druhy_migrace = cursor.fetchall()
+    graf_migrace_labels = ["Tažní" if r["migrace"] == 1 else "Netažní" for r in druhy_migrace]
+    graf_migrace_data = [r["pocet"] for r in druhy_migrace]
+    
+    # 4. Počet druhů podle kontinentu
+    graf_kontinent_query = f"SELECT vyskyt_kontinent, COUNT(*) as pocet FROM ptaci WHERE {where_clause} GROUP BY vyskyt_kontinent ORDER BY pocet DESC"
+    cursor.execute(graf_kontinent_query, values)
+    druhy_kontinent = cursor.fetchall()
+    graf_kontinent_labels = [r["vyskyt_kontinent"] for r in druhy_kontinent]
+    graf_kontinent_data = [r["pocet"] for r in druhy_kontinent]
+    
     # Načtení možností pro dropdowny
     filter_options = get_filter_options(conn)
     
@@ -146,7 +175,15 @@ def dashboard():
         ptaci=ptaci,
         filter_options=filter_options,
         params=request.args,
-        stats=stats
+        stats=stats,
+        graf_rad_labels=graf_rad_labels,
+        graf_rad_data=graf_rad_data,
+        graf_potrava_labels=graf_potrava_labels,
+        graf_potrava_data=graf_potrava_data,
+        graf_migrace_labels=graf_migrace_labels,
+        graf_migrace_data=graf_migrace_data,
+        graf_kontinent_labels=graf_kontinent_labels,
+        graf_kontinent_data=graf_kontinent_data
     )
 
 if __name__ == "__main__":
