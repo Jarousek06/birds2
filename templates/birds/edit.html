@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Upravit ptáka - Ptačí Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="auth-container" style="max-width: 600px; margin: 30px auto;">
+        <h1>✏️ Upravit ptáka</h1>
+        
+        <form method="POST" action="{{ url_for('edit_bird', bird_id=bird.id) }}">
+            <div class="form-group">
+                <label for="nazev">Název: *</label>
+                <input type="text" id="nazev" name="nazev" required value="{{ request.form.get('nazev', bird.nazev) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="vedecky_nazev">Vědecký název: *</label>
+                <input type="text" id="vedecky_nazev" name="vedecky_nazev" required value="{{ request.form.get('vedecky_nazev', bird.vedecky_nazev) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="rad">Řád: *</label>
+                <input type="text" id="rad" name="rad" required value="{{ request.form.get('rad', bird.rad) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="celed">Čeleď: *</label>
+                <input type="text" id="celed" name="celed" required value="{{ request.form.get('celed', bird.celed) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="delka_cm">Délka (cm): *</label>
+                <input type="number" id="delka_cm" name="delka_cm" step="0.1" required value="{{ request.form.get('delka_cm', bird.delka_cm) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="rozpeti_cm">Rozpětí (cm): *</label>
+                <input type="number" id="rozpeti_cm" name="rozpeti_cm" step="0.1" required value="{{ request.form.get('rozpeti_cm', bird.rozpeti_cm) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="hmotnost_g">Hmotnost (g): *</label>
+                <input type="number" id="hmotnost_g" name="hmotnost_g" step="0.1" required value="{{ request.form.get('hmotnost_g', bird.hmotnost_g) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="status_ohrozeni">Status ohrožení: *</label>
+                <select id="status_ohrozeni" name="status_ohrozeni" required>
+                    <option value="Málo dotčený" {% if request.form.get('status_ohrozeni', bird.status_ohrozeni) == 'Málo dotčený' %}selected{% endif %}>Málo dotčený</option>
+                    <option value="Téměř ohrožený" {% if request.form.get('status_ohrozeni', bird.status_ohrozeni) == 'Téměř ohrožený' %}selected{% endif %}>Téměř ohrožený</option>
+                    <option value="Zranitelný" {% if request.form.get('status_ohrozeni', bird.status_ohrozeni) == 'Zranitelný' %}selected{% endif %}>Zranitelný</option>
+                    <option value="Ohrožený" {% if request.form.get('status_ohrozeni', bird.status_ohrozeni) == 'Ohrožený' %}selected{% endif %}>Ohrožený</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="typ_potravy">Typ potravy: *</label>
+                <select id="typ_potravy" name="typ_potravy" required>
+                    <option value="hmyzožravec" {% if request.form.get('typ_potravy', bird.typ_potravy) == 'hmyzožravec' %}selected{% endif %}>Hmyzožravec</option>
+                    <option value="masožravec" {% if request.form.get('typ_potravy', bird.typ_potravy) == 'masožravec' %}selected{% endif %}>Masožravec</option>
+                    <option value="mrchožrout" {% if request.form.get('typ_potravy', bird.typ_potravy) == 'mrchožrout' %}selected{% endif %}>Mrchožrout</option>
+                    <option value="býložravec" {% if request.form.get('typ_potravy', bird.typ_potravy) == 'býložravec' %}selected{% endif %}>Býložravec</option>
+                    <option value="všežravec" {% if request.form.get('typ_potravy', bird.typ_potravy) == 'všežravec' %}selected{% endif %}>Všežravec</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="migrace">Tažný (migrace)? *</label>
+                <select id="migrace" name="migrace" required>
+                    <option value="1" {% if request.form.get('migrace', bird.migrace)|int == 1 %}selected{% endif %}>Ano (tažný)</option>
+                    <option value="0" {% if request.form.get('migrace', bird.migrace)|int == 0 %}selected{% endif %}>Ne (netažný)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="vyskyt_kontinent">Kontinent: *</label>
+                <select id="vyskyt_kontinent" name="vyskyt_kontinent" required>
+                    <option value="Afrika" {% if request.form.get('vyskyt_kontinent', bird.vyskyt_kontinent) == 'Afrika' %}selected{% endif %}>Afrika</option>
+                    <option value="Antarktida" {% if request.form.get('vyskyt_kontinent', bird.vyskyt_kontinent) == 'Antarktida' %}selected{% endif %}>Antarktida</option>
+                    <option value="Asie" {% if request.form.get('vyskyt_kontinent', bird.vyskyt_kontinent) == 'Asie' %}selected{% endif %}>Asie</option>
+                    <option value="Austrálie" {% if request.form.get('vyskyt_kontinent', bird.vyskyt_kontinent) == 'Austrálie' %}selected{% endif %}>Austrálie</option>
+                    <option value="Evropa" {% if request.form.get('vyskyt_kontinent', bird.vyskyt_kontinent) == 'Evropa' %}selected{% endif %}>Evropa</option>
+                    <option value="Jižní Amerika" {% if request.form.get('vyskyt_kontinent', bird.vyskyt_kontinent) == 'Jižní Amerika' %}selected{% endif %}>Jižní Amerika</option>
+                    <option value="Severní Amerika" {% if request.form.get('vyskyt_kontinent', bird.vyskyt_kontinent) == 'Severní Amerika' %}selected{% endif %}>Severní Amerika</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="snuska_ks">Snůška (počet vajec): *</label>
+                <input type="number" id="snuska_ks" name="snuska_ks" required value="{{ request.form.get('snuska_ks', bird.snuska_ks) }}">
+            </div>
+
+            <button type="submit" style="background-color: #40916c; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; width: 100%;">Uložit změny</button>
+        </form>
+
+        <div class="auth-link">
+            <a href="/">← Zpět na dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
