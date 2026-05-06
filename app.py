@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import os
+from functools import wraps
 
 app = Flask(__name__)
+app.secret_key = "your-secret-key-change-in-production"
 
 # Povolené sloupce pro řazení (bezpečnost proti SQL injection)
 ALLOWED_SORT_COLUMNS = {
@@ -17,6 +20,28 @@ def get_db():
     conn = sqlite3.connect("ptaci.db")
     conn.row_factory = sqlite3.Row
     return conn
+
+def login_required(f):
+    """Dekorátor pro ochranou tras vyžadujících přihlášení."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            flash("Musíte se přihlásit, abyste mohli pokračovat.", "warning")
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+def get_current_user():
+    """Vrací aktuálního přihlášeného uživatele nebo None."""
+    if 'user_id' not in session:
+        return None
+    
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, name, email FROM users WHERE id = ?", (session['user_id'],))
+    user = cursor.fetchone()
+    conn.close()
+    return user
 
 def build_query(params):
     """Sestaví WHERE klauzuli a seznam hodnot z parametrů.
@@ -106,13 +131,25 @@ def get_sort_params(params):
     return razeni, smer
 
 @app.route("/")
+@login_required
 def dashboard():
     """Načte ptáky z databáze podle filtrů a řazení a zobrazí je v dashboardu."""
+    current_user = get_current_user()
+    if not current_user:
+        return redirect(url_for('login'))
+    
     conn = get_db()
     cursor = conn.cursor()
     
     # Sestavení WHERE klauzule ze GET parametrů
     where_clause, values = build_query(request.args)
+    
+    # Přidání filtrování podle user_id
+    if where_clause != "1=1":
+        where_clause = f"({where_clause}) AND user_id = ?"
+    else:
+        where_clause = "user_id = ?"
+    values.append(current_user['id'])
     
     # Validace a získání parametrů řazení
     razeni, smer = get_sort_params(request.args)
@@ -185,6 +222,103 @@ def dashboard():
         graf_kontinent_labels=graf_kontinent_labels,
         graf_kontinent_data=graf_kontinent_data
     )
+
+# ==================== AUTENTIFIKACE ====================
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Registrace nového uživatele."""
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "")
+        password_confirm = request.form.get("password_confirm", "")
+        
+        # Validace
+        errors = []
+        if not name:
+            errors.append("Jméno je povinné.")
+        if not email or "@" not in email:
+            errors.append("Platný email je povinný.")
+        if len(password) < 6:
+            errors.append("Heslo musí mít alespoň 6 znaků.")
+        if password != password_confirm:
+            errors.append("Hesla se neshodují.")
+        
+        # Kontrola duplikátu
+        if not errors:
+            conn = get_db()
+            cursor = conn.cursor()
+            cursor.execute("SELECT id FROM users WHERE email = ?", (email,))
+            if cursor.fetchone():
+                errors.append("Tento email je již registrován.")
+            conn.close()
+        
+        if errors:
+            for error in errors:
+                flash(error, "danger")
+            return render_template("auth/register.html", name=name, email=email)
+        
+        # Vytvoření uživatele
+        conn = get_db()
+        cursor = conn.cursor()
+        password_hash = generate_password_hash(password)
+        cursor.execute(
+            "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
+            (name, email, password_hash)
+        )
+        conn.commit()
+        conn.close()
+        
+        flash("Registrace úspěšná! Nyní se můžete přihlásit.", "success")
+        return redirect(url_for("login"))
+    
+    return render_template("auth/register.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """Přihlášení uživatele."""
+    if request.method == "POST":
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "")
+        
+        errors = []
+        if not email:
+            errors.append("Email je povinný.")
+        if not password:
+            errors.append("Heslo je povinné.")
+        
+        user = None
+        if not errors:
+            conn = get_db()
+            cursor = conn.cursor()
+            cursor.execute("SELECT id, password_hash FROM users WHERE email = ?", (email,))
+            user_row = cursor.fetchone()
+            conn.close()
+            
+            if user_row and check_password_hash(user_row["password_hash"], password):
+                user = user_row
+            else:
+                errors.append("Neplatný email nebo heslo.")
+        
+        if errors:
+            for error in errors:
+                flash(error, "danger")
+            return render_template("auth/login.html", email=email)
+        
+        # Přihlášení
+        session['user_id'] = user['id']
+        flash("Úspěšně jste se přihlásili!", "success")
+        return redirect(url_for("dashboard"))
+    
+    return render_template("auth/login.html")
+
+@app.route("/logout")
+def logout():
+    """Odhlášení uživatele."""
+    session.pop('user_id', None)
+    flash("Úspěšně jste se odhlásili.", "info")
+    return redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ptačí Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <header>
-        <h1>🐦 Ptačí Dashboard</h1>
-    </header>
-    
-    <div class="container">
-        <!-- Filtrační sekce -->
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Ptačí Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Filtrační sekce -->
     <div class="filter-section">
         <h2>Filtry</h2>
         <form method="GET" action="/">
@@ -137,69 +128,69 @@
     <!-- Tabulka -->
     <div class="table-wrapper">
         <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Název</th>
-                <th>Vědecký název</th>
-                <th>Řád</th>
-                <th>Čeleď</th>
-                <th>Délka (cm)</th>
-                <th>Rozpětí (cm)</th>
-                <th>Hmotnost (g)</th>
-                <th>Status</th>
-                <th>Potrava</th>
-                <th>Migrace</th>
-                <th>Kontinent</th>
-                <th>Snůška (ks)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if ptaci %}
-                {% for p in ptaci %}
+            <thead>
                 <tr>
-                    <td>{{ loop.index }}</td>
-                    <td>{{ p['nazev'] }}</td>
-                    <td><em>{{ p['vedecky_nazev'] }}</em></td>
-                    <td>{{ p['rad'] }}</td>
-                    <td>{{ p['celed'] }}</td>
-                    <td>{{ p['delka_cm'] }}</td>
-                    <td>{{ p['rozpeti_cm'] }}</td>
-                    <td>{{ p['hmotnost_g'] }}</td>
-                    <td>
-                        {% set status_class = '' %}
-                        {% if p['status_ohrozeni'] == 'Málo dotčený' or p['status_ohrozeni'] == 'Least Concern' %}
-                            {% set status_class = 'status-lc' %}
-                        {% elif p['status_ohrozeni'] == 'Téměř ohrožený' or p['status_ohrozeni'] == 'Near Threatened' %}
-                            {% set status_class = 'status-nt' %}
-                        {% elif p['status_ohrozeni'] == 'Zranitelný' or p['status_ohrozeni'] == 'Vulnerable' %}
-                            {% set status_class = 'status-zr' %}
-                        {% elif p['status_ohrozeni'] == 'Ohrožený' or p['status_ohrozeni'] == 'Endangered' %}
-                            {% set status_class = 'status-oh' %}
-                        {% endif %}
-                        <span class="status-badge {{ status_class }}">{{ p['status_ohrozeni'] }}</span>
-                    </td>
-                    <td>{{ p['typ_potravy'] }}</td>
-                    <td>
-                        {% if p['migrace'] == 1 %}
-                            ✓ Ano
-                        {% else %}
-                            ✗ Ne
-                        {% endif %}
-                    </td>
-                    <td>{{ p['vyskyt_kontinent'] }}</td>
-                    <td>{{ p['snuska_ks'] }}</td>
+                    <th>#</th>
+                    <th>Název</th>
+                    <th>Vědecký název</th>
+                    <th>Řád</th>
+                    <th>Čeleď</th>
+                    <th>Délka (cm)</th>
+                    <th>Rozpětí (cm)</th>
+                    <th>Hmotnost (g)</th>
+                    <th>Status</th>
+                    <th>Potrava</th>
+                    <th>Migrace</th>
+                    <th>Kontinent</th>
+                    <th>Snůška (ks)</th>
                 </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="13" style="text-align: center; padding: 20px; color: #999;">
-                        Žádní ptáci se neodpovídají zvoleným filtrům.
-                    </td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% if ptaci %}
+                    {% for p in ptaci %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ p['nazev'] }}</td>
+                        <td><em>{{ p['vedecky_nazev'] }}</em></td>
+                        <td>{{ p['rad'] }}</td>
+                        <td>{{ p['celed'] }}</td>
+                        <td>{{ p['delka_cm'] }}</td>
+                        <td>{{ p['rozpeti_cm'] }}</td>
+                        <td>{{ p['hmotnost_g'] }}</td>
+                        <td>
+                            {% set status_class = '' %}
+                            {% if p['status_ohrozeni'] == 'Málo dotčený' or p['status_ohrozeni'] == 'Least Concern' %}
+                                {% set status_class = 'status-lc' %}
+                            {% elif p['status_ohrozeni'] == 'Téměř ohrožený' or p['status_ohrozeni'] == 'Near Threatened' %}
+                                {% set status_class = 'status-nt' %}
+                            {% elif p['status_ohrozeni'] == 'Zranitelný' or p['status_ohrozeni'] == 'Vulnerable' %}
+                                {% set status_class = 'status-zr' %}
+                            {% elif p['status_ohrozeni'] == 'Ohrožený' or p['status_ohrozeni'] == 'Endangered' %}
+                                {% set status_class = 'status-oh' %}
+                            {% endif %}
+                            <span class="status-badge {{ status_class }}">{{ p['status_ohrozeni'] }}</span>
+                        </td>
+                        <td>{{ p['typ_potravy'] }}</td>
+                        <td>
+                            {% if p['migrace'] == 1 %}
+                                ✓ Ano
+                            {% else %}
+                                ✗ Ne
+                            {% endif %}
+                        </td>
+                        <td>{{ p['vyskyt_kontinent'] }}</td>
+                        <td>{{ p['snuska_ks'] }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="13" style="text-align: center; padding: 20px; color: #999;">
+                            Žádní ptáci se neodpovídají zvoleným filtrům.
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
     </div>
     
     <!-- Grafy -->
@@ -312,6 +303,5 @@
             }
         });
     </script>
-    </div>
-</body>
-</html>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Přihlášení - Ptačí Dashboard{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h1>🔑 Přihlášení</h1>
+    
+    <form method="POST">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ email or '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Heslo:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <button type="submit">Přihlásit se</button>
+        </div>
+    </form>
+
+    <div class="auth-link">
+        Nemáte ještě účet? <a href="{{ url_for('register') }}">Zaregistrujte se zde</a>
+    </div>
+
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center; font-size: 12px; color: #999;">
+        <strong>Demo účet:</strong><br>
+        Email: admin@birds.local<br>
+        Heslo: admin123
+    </div>
+</div>
+{% endblock %}
