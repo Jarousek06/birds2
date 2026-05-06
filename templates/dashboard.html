@@ -4,6 +4,11 @@
 
 {% block content %}
 <div class="container">
+    <!-- Tlačítko Přidat ptáka -->
+    <div style="margin-bottom: 20px;">
+        <a href="{{ url_for('add_bird') }}" style="background-color: #40916c; color: white; padding: 10px 16px; border-radius: 5px; text-decoration: none; font-weight: 600; display: inline-block;">➕ Přidat nového ptáka</a>
+    </div>
+
     <!-- Filtrační sekce -->
     <div class="filter-section">
         <h2>Filtry</h2>

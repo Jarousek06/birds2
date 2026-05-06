@@ -228,6 +228,86 @@ def dashboard():
         graf_kontinent_data=graf_kontinent_data
     )
 
+# ==================== SPRÁVA PTÁKŮ ====================
+
+@app.route("/birds/add", methods=["GET", "POST"])
+@login_required
+def add_bird():
+    """Přidání nového ptáka do databáze."""
+    if request.method == "POST":
+        current_user = get_current_user()
+        
+        # Extrakce a validace dat
+        errors = []
+        
+        try:
+            nazev = request.form.get("nazev", "").strip()
+            vedecky_nazev = request.form.get("vedecky_nazev", "").strip()
+            rad = request.form.get("rad", "").strip()
+            celed = request.form.get("celed", "").strip()
+            delka_cm = float(request.form.get("delka_cm", 0))
+            rozpeti_cm = float(request.form.get("rozpeti_cm", 0))
+            hmotnost_g = float(request.form.get("hmotnost_g", 0))
+            status_ohrozeni = request.form.get("status_ohrozeni", "").strip()
+            typ_potravy = request.form.get("typ_potravy", "").strip()
+            migrace = int(request.form.get("migrace", 0))
+            vyskyt_kontinent = request.form.get("vyskyt_kontinent", "").strip()
+            snuska_ks = int(request.form.get("snuska_ks", 0))
+        except (ValueError, TypeError):
+            errors.append("Neplatný formát číselného pole.")
+        
+        # Validace povinných polí
+        if not errors:
+            if not nazev:
+                errors.append("Název ptáka je povinný.")
+            if not vedecky_nazev:
+                errors.append("Vědecký název je povinný.")
+            if not rad:
+                errors.append("Řád je povinný.")
+            if not celed:
+                errors.append("Čeleď je povinná.")
+            if delka_cm <= 0:
+                errors.append("Délka musí být větší než 0.")
+            if rozpeti_cm <= 0:
+                errors.append("Rozpětí musí být větší než 0.")
+            if hmotnost_g <= 0:
+                errors.append("Hmotnost musí být větší než 0.")
+            if not status_ohrozeni:
+                errors.append("Status ohrožení je povinný.")
+            if not typ_potravy:
+                errors.append("Typ potravy je povinný.")
+            if not vyskyt_kontinent:
+                errors.append("Kontinent je povinný.")
+            if snuska_ks < 0:
+                errors.append("Počet vajec nemůže být záporný.")
+        
+        if errors:
+            for error in errors:
+                flash(error, "danger")
+            return render_template("birds/add.html")
+        
+        # Vložení do databáze
+        try:
+            conn = get_db()
+            cursor = conn.cursor()
+            cursor.execute(
+                """INSERT INTO ptaci (nazev, vedecky_nazev, rad, celed, delka_cm, rozpeti_cm, 
+                   hmotnost_g, status_ohrozeni, typ_potravy, migrace, vyskyt_kontinent, snuska_ks, user_id)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (nazev, vedecky_nazev, rad, celed, delka_cm, rozpeti_cm, hmotnost_g, 
+                 status_ohrozeni, typ_potravy, migrace, vyskyt_kontinent, snuska_ks, current_user['id'])
+            )
+            conn.commit()
+            conn.close()
+            
+            flash(f"Pták '{nazev}' byl úspěšně přidán!", "success")
+            return redirect(url_for("dashboard"))
+        except Exception as e:
+            flash(f"Chyba při ukládání: {str(e)}", "danger")
+            return render_template("birds/add.html")
+    
+    return render_template("birds/add.html")
+
 # ==================== AUTENTIFIKACE ====================
 
 @app.route("/register", methods=["GET", "POST"])
