@@ -122,6 +122,20 @@ def dashboard():
     cursor.execute(query, values)
     ptaci = cursor.fetchall()
     
+    # Agregační dotaz pro statistiky
+    stats_query = f"""
+    SELECT
+        COUNT(*) as pocet,
+        ROUND(AVG(delka_cm), 1) as prum_delka,
+        MAX(hmotnost_g) as max_hmotnost,
+        MIN(hmotnost_g) as min_hmotnost,
+        ROUND(AVG(hmotnost_g), 1) as prum_hmotnost,
+        ROUND(AVG(rozpeti_cm), 1) as prum_rozpeti
+    FROM ptaci WHERE {where_clause}
+    """
+    cursor.execute(stats_query, values)
+    stats = dict(cursor.fetchone())
+    
     # Načtení možností pro dropdowny
     filter_options = get_filter_options(conn)
     
@@ -131,7 +145,8 @@ def dashboard():
         "dashboard.html",
         ptaci=ptaci,
         filter_options=filter_options,
-        params=request.args
+        params=request.args,
+        stats=stats
     )
 
 if __name__ == "__main__":

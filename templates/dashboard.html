@@ -113,6 +113,36 @@
             font-size: 14px;
             margin-top: 10px;
         }
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .stat-card .unit {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -214,6 +244,29 @@
         </form>
         
         <div class="count">Nalezeno ptáků: <strong>{{ ptaci|length }}</strong></div>
+    </div>
+    
+    <!-- Statistické karty -->
+    <div class="stats-section">
+        <div class="stat-card">
+            <h3>Počet druhů</h3>
+            <p class="value">{{ stats['pocet'] }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Průměrná délka</h3>
+            <p class="value">{{ stats['prum_delka'] }}</p>
+            <div class="unit">cm</div>
+        </div>
+        <div class="stat-card">
+            <h3>Průměrná hmotnost</h3>
+            <p class="value">{{ stats['prum_hmotnost'] }}</p>
+            <div class="unit">g</div>
+        </div>
+        <div class="stat-card">
+            <h3>Maximální hmotnost</h3>
+            <p class="value">{{ stats['max_hmotnost'] }}</p>
+            <div class="unit">g</div>
+        </div>
     </div>
     
     <!-- Tabulka -->
