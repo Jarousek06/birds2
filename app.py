@@ -4,6 +4,14 @@ import os
 
 app = Flask(__name__)
 
+# Povolené sloupce pro řazení (bezpečnost proti SQL injection)
+ALLOWED_SORT_COLUMNS = {
+    "nazev", "vedecky_nazev", "rad", "celed",
+    "delka_cm", "rozpeti_cm", "hmotnost_g",
+    "status_ohrozeni", "typ_potravy", "migrace",
+    "vyskyt_kontinent", "snuska_ks",
+}
+
 def get_db():
     """Otevře spojení na databázi a nastaví row_factory pro přístup podle názvu sloupce."""
     conn = sqlite3.connect("ptaci.db")
@@ -78,17 +86,39 @@ def get_filter_options(conn):
     
     return options
 
+def get_sort_params(params):
+    """Validuje a vrací bezpečné parametry řazení.
+    
+    Parametry:
+    - razeni: sloupec pro řazení (kontrola proti ALLOWED_SORT_COLUMNS)
+    - smer: ASC nebo DESC
+    
+    Vrací: (razeni, smer)
+    """
+    razeni = params.get("razeni", "nazev").lower()
+    if razeni not in ALLOWED_SORT_COLUMNS:
+        razeni = "nazev"
+    
+    smer = params.get("smer", "ASC").upper()
+    if smer not in ["ASC", "DESC"]:
+        smer = "ASC"
+    
+    return razeni, smer
+
 @app.route("/")
 def dashboard():
-    """Načte ptáky z databáze podle filtrů a zobrazí je v dashboardu."""
+    """Načte ptáky z databáze podle filtrů a řazení a zobrazí je v dashboardu."""
     conn = get_db()
     cursor = conn.cursor()
     
     # Sestavení WHERE klauzule ze GET parametrů
     where_clause, values = build_query(request.args)
     
-    # Hlavní dotaz s filtry
-    query = f"SELECT * FROM ptaci WHERE {where_clause} ORDER BY nazev ASC"
+    # Validace a získání parametrů řazení
+    razeni, smer = get_sort_params(request.args)
+    
+    # Hlavní dotaz s filtry a řazením
+    query = f"SELECT * FROM ptaci WHERE {where_clause} ORDER BY {razeni} {smer}"
     cursor.execute(query, values)
     ptaci = cursor.fetchall()
     

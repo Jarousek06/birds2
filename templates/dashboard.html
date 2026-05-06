@@ -185,6 +185,28 @@
                 </div>
             </div>
             
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="razeni">Řadit podle:</label>
+                    <select name="razeni" id="razeni">
+                        <option value="nazev" {% if params.get('razeni') == 'nazev' %}selected{% endif %}>Název</option>
+                        <option value="rad" {% if params.get('razeni') == 'rad' %}selected{% endif %}>Řád</option>
+                        <option value="delka_cm" {% if params.get('razeni') == 'delka_cm' %}selected{% endif %}>Délka</option>
+                        <option value="rozpeti_cm" {% if params.get('razeni') == 'rozpeti_cm' %}selected{% endif %}>Rozpětí</option>
+                        <option value="hmotnost_g" {% if params.get('razeni') == 'hmotnost_g' %}selected{% endif %}>Hmotnost</option>
+                        <option value="snuska_ks" {% if params.get('razeni') == 'snuska_ks' %}selected{% endif %}>Snůška</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="smer">Směr:</label>
+                    <select name="smer" id="smer">
+                        <option value="ASC" {% if params.get('smer') != 'DESC' %}selected{% endif %}>Vzestupně (A-Z)</option>
+                        <option value="DESC" {% if params.get('smer') == 'DESC' %}selected{% endif %}>Sestupně (Z-A)</option>
+                    </select>
+                </div>
+            </div>
+            
             <div class="filter-buttons">
                 <button type="submit">🔍 Filtrovat</button>
                 <a href="/" class="reset-link">🔄 Resetovat</a>
