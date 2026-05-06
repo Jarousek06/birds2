@@ -43,6 +43,11 @@ def get_current_user():
     conn.close()
     return user
 
+@app.context_processor
+def inject_current_user():
+    """Vloží aktuálního uživatele do kontextu každého template."""
+    return {'current_user': get_current_user()}
+
 def build_query(params):
     """Sestaví WHERE klauzuli a seznam hodnot z parametrů.
     

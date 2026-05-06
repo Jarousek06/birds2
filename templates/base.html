@@ -216,11 +216,11 @@
         <div class="navbar-content">
             <a href="/" class="navbar-brand">🐦 Ptačí Dashboard</a>
             <div class="navbar-links">
-                {% if session.get('user_id') %}
+                {% if current_user %}
                     <a href="/">Domů</a>
                     <a href="/">Ptáci</a>
                     <div class="navbar-user">
-                        <span class="navbar-user-name">{{ get_current_user().name }}</span>
+                        <span class="navbar-user-name">{{ current_user.name }}</span>
                         <a href="{{ url_for('logout') }}" class="logout-btn">Odhlásit se</a>
                     </div>
                 {% else %}
