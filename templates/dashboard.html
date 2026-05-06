@@ -5,174 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ptačí Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .filter-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .filter-section h2 {
-            margin-top: 0;
-            color: #4CAF50;
-            font-size: 18px;
-        }
-        .filter-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-        .filter-group label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #333;
-            font-size: 14px;
-        }
-        .filter-group select,
-        .filter-group input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .filter-group select:focus,
-        .filter-group input:focus {
-            outline: none;
-            border-color: #4CAF50;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-        }
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        button, .reset-link {
-            padding: 10px 20px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .reset-link {
-            background-color: #f44336;
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .reset-link:hover {
-            background-color: #da190b;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px;
-            text-align: left;
-            font-weight: bold;
-            border: 1px solid #ddd;
-        }
-        td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f0f0f0;
-        }
-        .count {
-            color: #666;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-        .stats-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .stat-card {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .stat-card h3 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-            font-weight: normal;
-            opacity: 0.9;
-        }
-        .stat-card .value {
-            font-size: 32px;
-            font-weight: bold;
-            margin: 0;
-        }
-        .stat-card .unit {
-            font-size: 12px;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
-        .charts-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-        .chart-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: relative;
-            height: 400px;
-        }
-        .chart-container h3 {
-            margin-top: 0;
-            color: #333;
-            font-size: 16px;
-        }
-        .chart-container canvas {
-            max-height: 350px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>🐦 Ptačí Dashboard</h1>
+    <header>
+        <h1>🐦 Ptačí Dashboard</h1>
+    </header>
     
-    <!-- Filtrační sekce -->
+    <div class="container">
+        <!-- Filtrační sekce -->
     <div class="filter-section">
         <h2>Filtry</h2>
         <form method="GET" action="/">
@@ -294,7 +135,8 @@
     </div>
     
     <!-- Tabulka -->
-    <table>
+    <div class="table-wrapper">
+        <table>
         <thead>
             <tr>
                 <th>#</th>
@@ -324,7 +166,19 @@
                     <td>{{ p['delka_cm'] }}</td>
                     <td>{{ p['rozpeti_cm'] }}</td>
                     <td>{{ p['hmotnost_g'] }}</td>
-                    <td>{{ p['status_ohrozeni'] }}</td>
+                    <td>
+                        {% set status_class = '' %}
+                        {% if p['status_ohrozeni'] == 'Málo dotčený' or p['status_ohrozeni'] == 'Least Concern' %}
+                            {% set status_class = 'status-lc' %}
+                        {% elif p['status_ohrozeni'] == 'Téměř ohrožený' or p['status_ohrozeni'] == 'Near Threatened' %}
+                            {% set status_class = 'status-nt' %}
+                        {% elif p['status_ohrozeni'] == 'Zranitelný' or p['status_ohrozeni'] == 'Vulnerable' %}
+                            {% set status_class = 'status-zr' %}
+                        {% elif p['status_ohrozeni'] == 'Ohrožený' or p['status_ohrozeni'] == 'Endangered' %}
+                            {% set status_class = 'status-oh' %}
+                        {% endif %}
+                        <span class="status-badge {{ status_class }}">{{ p['status_ohrozeni'] }}</span>
+                    </td>
                     <td>{{ p['typ_potravy'] }}</td>
                     <td>
                         {% if p['migrace'] == 1 %}
@@ -346,6 +200,7 @@
             {% endif %}
         </tbody>
     </table>
+    </div>
     
     <!-- Grafy -->
     <div class="charts-section">
@@ -457,5 +312,6 @@
             }
         });
     </script>
+    </div>
 </body>
 </html>
