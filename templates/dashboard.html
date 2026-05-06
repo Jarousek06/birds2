@@ -14,6 +14,76 @@
             color: #333;
             text-align: center;
         }
+        .filter-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .filter-section h2 {
+            margin-top: 0;
+            color: #4CAF50;
+            font-size: 18px;
+        }
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .filter-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+        .filter-group select,
+        .filter-group input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        button, .reset-link {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reset-link {
+            background-color: #f44336;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .reset-link:hover {
+            background-color: #da190b;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -38,11 +108,93 @@
         tr:hover {
             background-color: #f0f0f0;
         }
+        .count {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>🐦 Ptačí Dashboard</h1>
     
+    <!-- Filtrační sekce -->
+    <div class="filter-section">
+        <h2>Filtry</h2>
+        <form method="GET" action="/">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="rad">Řád:</label>
+                    <select name="rad" id="rad">
+                        <option value="">-- Všechny --</option>
+                        {% for r in filter_options['rady'] %}
+                            <option value="{{ r }}" {% if params.get('rad') == r %}selected{% endif %}>{{ r }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="typ_potravy">Typ potravy:</label>
+                    <select name="typ_potravy" id="typ_potravy">
+                        <option value="">-- Všechny --</option>
+                        {% for t in filter_options['potravy'] %}
+                            <option value="{{ t }}" {% if params.get('typ_potravy') == t %}selected{% endif %}>{{ t }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="kontinent">Kontinent:</label>
+                    <select name="kontinent" id="kontinent">
+                        <option value="">-- Všechny --</option>
+                        {% for k in filter_options['kontinenty'] %}
+                            <option value="{{ k }}" {% if params.get('kontinent') == k %}selected{% endif %}>{{ k }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="status">Status ohrožení:</label>
+                    <select name="status" id="status">
+                        <option value="">-- Všechny --</option>
+                        {% for s in filter_options['statusy'] %}
+                            <option value="{{ s }}" {% if params.get('status') == s %}selected{% endif %}>{{ s }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="migrace">Migrace (tažný):</label>
+                    <select name="migrace" id="migrace">
+                        <option value="">-- Všechny --</option>
+                        <option value="1" {% if params.get('migrace') == '1' %}selected{% endif %}>Ano (tažný)</option>
+                        <option value="0" {% if params.get('migrace') == '0' %}selected{% endif %}>Ne (netažný)</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="hmotnost_min">Hmotnost (min, g):</label>
+                    <input type="number" name="hmotnost_min" id="hmotnost_min" value="{{ params.get('hmotnost_min', '') }}" placeholder="0">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="hmotnost_max">Hmotnost (max, g):</label>
+                    <input type="number" name="hmotnost_max" id="hmotnost_max" value="{{ params.get('hmotnost_max', '') }}" placeholder="10000">
+                </div>
+            </div>
+            
+            <div class="filter-buttons">
+                <button type="submit">🔍 Filtrovat</button>
+                <a href="/" class="reset-link">🔄 Resetovat</a>
+            </div>
+        </form>
+        
+        <div class="count">Nalezeno ptáků: <strong>{{ ptaci|length }}</strong></div>
+    </div>
+    
+    <!-- Tabulka -->
     <table>
         <thead>
             <tr>
@@ -62,29 +214,37 @@
             </tr>
         </thead>
         <tbody>
-            {% for p in ptaci %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ p['nazev'] }}</td>
-                <td><em>{{ p['vedecky_nazev'] }}</em></td>
-                <td>{{ p['rad'] }}</td>
-                <td>{{ p['celed'] }}</td>
-                <td>{{ p['delka_cm'] }}</td>
-                <td>{{ p['rozpeti_cm'] }}</td>
-                <td>{{ p['hmotnost_g'] }}</td>
-                <td>{{ p['status_ohrozeni'] }}</td>
-                <td>{{ p['typ_potravy'] }}</td>
-                <td>
-                    {% if p['migrace'] == 1 %}
-                        Ano
-                    {% else %}
-                        Ne
-                    {% endif %}
-                </td>
-                <td>{{ p['vyskyt_kontinent'] }}</td>
-                <td>{{ p['snuska_ks'] }}</td>
-            </tr>
-            {% endfor %}
+            {% if ptaci %}
+                {% for p in ptaci %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ p['nazev'] }}</td>
+                    <td><em>{{ p['vedecky_nazev'] }}</em></td>
+                    <td>{{ p['rad'] }}</td>
+                    <td>{{ p['celed'] }}</td>
+                    <td>{{ p['delka_cm'] }}</td>
+                    <td>{{ p['rozpeti_cm'] }}</td>
+                    <td>{{ p['hmotnost_g'] }}</td>
+                    <td>{{ p['status_ohrozeni'] }}</td>
+                    <td>{{ p['typ_potravy'] }}</td>
+                    <td>
+                        {% if p['migrace'] == 1 %}
+                            ✓ Ano
+                        {% else %}
+                            ✗ Ne
+                        {% endif %}
+                    </td>
+                    <td>{{ p['vyskyt_kontinent'] }}</td>
+                    <td>{{ p['snuska_ks'] }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="13" style="text-align: center; padding: 20px; color: #999;">
+                        Žádní ptáci se neodpovídají zvoleným filtrům.
+                    </td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </body>
